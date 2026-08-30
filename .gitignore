@@ -1,0 +1,102 @@
+# ==============================================================================
+#  SmartEvent AI - .gitignore
+#  Creado ANTES del primer commit que incluye configuracion, para que ningun
+#  secreto entre nunca en el historial de Git (requisito de la entrega).
+# ==============================================================================
+
+# ------------------------------------------------------------------ SECRETOS
+# El archivo de ejemplo SI se versiona (appsettings.example.json, con valores
+# ficticios). El archivo real, con la cadena de conexion y las credenciales del
+# equipo, NUNCA.
+appsettings.json
+appsettings.*.json
+!appsettings.example.json
+!appsettings.Development.example.json
+
+*.env
+.env
+.env.*
+!.env.example
+
+# Secretos de usuario de .NET (dotnet user-secrets) por si se generan en local
+secrets.json
+
+# Certificados y claves
+*.pfx
+*.snk
+*.key
+*.pem
+
+# ------------------------------------------------------ SALIDAS DE COMPILACION
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Xx]64/
+[Xx]86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+build/
+bld/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+
+# --------------------------------------------------------- VISUAL STUDIO / IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.rsuser
+*.svclog
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.VisualState.xml
+*.dbmdl
+*.jfm
+
+# ------------------------------------------------------------------- PAQUETES
+packages/
+!packages/build/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+.nuget/
+
+# ------------------------------------------------------------------ RESULTADOS
+TestResult*/
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+
+# ------------------------------------------------------------------- TEMPORALES
+*.tmp
+*.temp
+*.bak
+*.cache
+*.log
+~$*
+*~
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# --------------------------------------------------------------- BASES DE DATOS
+# Los scripts .sql de /database SI se versionan; los archivos de datos no.
+*.mdf
+*.ldf
+*.ndf
+*.bak
