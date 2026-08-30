@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    SmartEvent.Core : nucleo del dominio.
+    No referencia NINGUN paquete externo ni ninguna otra capa. Es la capa mas interna:
+    define entidades, DTOs, enums, excepciones y las INTERFACES que las capas externas
+    implementan. Gracias a esto, Application depende de abstracciones y nunca de
+    Microsoft.Data.SqlClient, MailKit ni del cliente HTTP de IA.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <RootNamespace>SmartEvent.Core</RootNamespace>
+  </PropertyGroup>
+
+</Project>
