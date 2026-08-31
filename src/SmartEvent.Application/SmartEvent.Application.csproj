@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    SmartEvent.Application : logica de negocio y orquestacion.
+
+    Referencia UNICAMENTE a SmartEvent.Core. No conoce Microsoft.Data.SqlClient, ni MailKit, ni
+    el cliente HTTP del modelo de IA: trabaja contra las interfaces declaradas en Core. Esa es
+    la razon de que se pueda razonar sobre las reglas de negocio sin abrir un solo archivo de
+    infraestructura, y de que la capa se pueda probar sustituyendo las dependencias.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <RootNamespace>SmartEvent.Application</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartEvent.Core\SmartEvent.Core.csproj" />
+  </ItemGroup>
+
+</Project>
