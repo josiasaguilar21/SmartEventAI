@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    SmartEvent.Infrastructure.Data : unica capa que conoce SQL Server.
+    Implementa las interfaces de repositorio definidas en Core usando Microsoft.Data.SqlClient
+    con parametros fuertemente tipados y parametros tipo tabla (TVP). No contiene reglas de
+    negocio: cada metodo invoca un procedimiento almacenado y traduce el resultado.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <RootNamespace>SmartEvent.Infrastructure.Data</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartEvent.Core\SmartEvent.Core.csproj" />
+  </ItemGroup>
+
+</Project>
