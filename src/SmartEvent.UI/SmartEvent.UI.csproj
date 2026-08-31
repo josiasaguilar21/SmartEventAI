@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    SmartEvent.UI : capa de presentacion (Windows Forms) y RAIZ DE COMPOSICION.
+
+    Es el unico proyecto que referencia a todos los demas, porque es el que decide que
+    implementacion concreta se inyecta en cada interfaz. Los formularios, en cambio, solo
+    conocen los servicios de SmartEvent.Application: no hay una sola consulta SQL, cadena de
+    conexion ni llamada a MailKit u OpenAI dentro de un formulario.
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <RootNamespace>SmartEvent.UI</RootNamespace>
+    <AssemblyName>SmartEvent.UI</AssemblyName>
+    <ApplicationDefaultFont>Segoe UI, 9pt</ApplicationDefaultFont>
+
+    <!-- Identificador para 'dotnet user-secrets': permite guardar la cadena de conexion y las
+         claves fuera del arbol del proyecto, de modo que nunca puedan llegar a Git. -->
+    <UserSecretsId>smartevent-ai-josias-aguilar</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartEvent.Core\SmartEvent.Core.csproj" />
+    <ProjectReference Include="..\SmartEvent.Application\SmartEvent.Application.csproj" />
+    <ProjectReference Include="..\SmartEvent.Infrastructure.Data\SmartEvent.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\SmartEvent.Infrastructure.Integrations\SmartEvent.Infrastructure.Integrations.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Solo el archivo de EJEMPLO se copia junto al ejecutable. El appsettings.json real,
+         si existe, tambien se copia pero esta excluido del repositorio por .gitignore. -->
+    <None Update="appsettings.example.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
