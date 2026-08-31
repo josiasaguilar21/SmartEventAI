@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SmartEvent.Core\SmartEvent.Core.csproj" />
+    <ProjectReference Include="..\..\src\SmartEvent.Infrastructure.Data\SmartEvent.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\..\src\SmartEvent.Application\SmartEvent.Application.csproj" />
+    <ProjectReference Include="..\..\src\SmartEvent.Infrastructure.Integrations\SmartEvent.Infrastructure.Integrations.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
