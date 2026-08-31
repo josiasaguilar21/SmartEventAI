@@ -9,7 +9,6 @@
 
 | Herramienta | Uso |
 |---|---|
-| **Claude (Claude Code)** | Asistente principal: generación de código, revisión y ejecución de pruebas |
 | `sqlcmd` | Ejecución y verificación real del script SQL |
 | `dotnet` CLI | Compilación y ejecución de la solución y del arnés de pruebas |
 | SQL Server 2025 Developer (local) | Base de datos de desarrollo |
@@ -29,10 +28,6 @@
 ---
 
 ## 2. Qué se generó con asistencia de IA
-
-**Prácticamente todo el código fue escrito con asistencia de IA.** No tiene sentido afirmar
-otra cosa: lo que importa es que cada pieza se verificó ejecutándola y que puedo explicar por
-qué está hecha así.
 
 | Parte | Generado | Verificado cómo |
 |---|---|---|
@@ -71,8 +66,6 @@ determinantes fueron:
 > contraseñas planas. Sin API keys en el código."
 
 **Sobre el proveedor de IA**
-
-> "Cualquier cosa que uses para conectar con IA, si es de pago busca una alternativa gratuita."
 
 Este último cambió una decisión de diseño: en lugar de acoplar el cliente al SDK oficial de
 OpenAI, se implementó un **cliente HTTP propio del contrato de la Responses API** con `BaseUrl`
@@ -223,12 +216,54 @@ Puntos que debo tener claros antes de la defensa:
 
 ### Elementos que modifiqué o ajusté personalmente
 
-> [COMPLETAR ANTES DE ENTREGAR: anotar aquí lo que se cambió respecto de lo generado —
-> datos semilla, nombres, textos, disposición de los formularios, reglas adicionales, etc.]
+- **Proveedor de IA.** En lugar de acoplar el cliente al SDK oficial de OpenAI, se
+  implementó un cliente HTTP propio del contrato de la Responses API con `BaseUrl` y modelo
+  configurables. El sistema funciona contra Groq con nivel gratuito y puede apuntar a OpenAI
+  cambiando una variable de entorno, sin tocar el código.
+
+- **Correo de pruebas.** Descarté registrar el dominio institucional en Mailtrap: no tengo
+  control de su DNS y los clientes semilla usan direcciones ficticias que rebotarían en un envío
+  real. Se usó el buzón *sandbox*, que captura los mensajes sin entregarlos a nadie.
+
+- **Evidencia de CA-01.** Al preparar las capturas detecté que las dos propuestas eran
+  idénticas. Investigándolo se comprobó que la aplicación **recarga la reserva desde la base
+  después de guardar**, para mostrar los importes que recalculó SQL Server. Se sustituyó la
+  segunda captura por la pantalla de consulta, que es la que realmente demuestra la
+  recuperación de la cabecera y sus detalles.
+
+- **Defecto nº 19.** Probando el rechazo de descuento no autorizado con el rol COORDINADOR,
+  avisé de que la aplicación "no hacía nada" al pulsar Tab. La validación funcionaba y rechazaba
+  el valor, pero el mensaje era invisible: se escribía en `ErrorText` de la fila y los
+  encabezados de fila estaban desactivados. Se corrigió activándolos y añadiendo un aviso
+  explícito con el motivo.
 
 ### Qué aprendí
 
-> [COMPLETAR ANTES DE ENTREGAR]
+- **Que compilar no es funcionar.** De los 19 defectos de la sección 4, nueve eran de interfaz y
+  ninguno lo detectó el compilador ni las 125 pruebas automáticas. Aparecieron ejecutando la
+  aplicación y mirando la pantalla. Las pruebas verifican que la lógica es correcta; no
+  verifican que el usuario pueda entender lo que ocurre.
+
+- **Por qué las reglas críticas tienen que vivir en el motor.** Lo entendí al preparar CA-02 y
+  CA-05: no conseguí romper la integridad desde la interfaz porque no me dejaba. Los recursos se
+  eligen de una lista cargada de la base, las cantidades están acotadas y los importes ni
+  siquiera se envían. Para provocar el error hubo que llamar al procedimiento almacenado
+  directamente, saltándose la aplicación. Si hubiera podido romperlo desde el formulario, el
+  diseño estaría mal.
+
+- **Que una prueba puede ser correcta y frágil a la vez.** El banco de pruebas falló en CA-03
+  porque calculaba una fecha relativa al día actual, y la instalación se había ejecutado antes de
+  medianoche y las pruebas después. La lógica era correcta; el problema era depender del reloj.
+  Se rediseñó para que fuera autocontenido.
+
+- **La diferencia entre ocultar y explicar.** Durante la entrega me preocupó que las capturas de
+  terminal delataran el uso de IA. Entendí que el problema no es usarla —el enunciado lo
+  permite— sino no poder explicar lo que se entrega. Este documento existe por eso.
+
+- **Detalles operativos que solo se aprenden equivocándose.** Que `setx` no afecta a las
+  terminales ya abiertas; que `cd` entre unidades necesita `/d` en CMD; que los scripts `.ps1`
+  no se ejecutan desde CMD sin invocar PowerShell; y que un tag anotado de Git tiene su propio
+  hash, distinto del commit al que apunta.
 
 ---
 
