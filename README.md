@@ -6,10 +6,11 @@ correo con MailKit y análisis de riesgo asistido por IA con salidas estructurad
 
 **Autor:** Josias Aguilar
 **Asignatura:** Desarrollo e Implementación de Aplicaciones de Escritorio
-**Versión de entrega:** `v1.0.0` — commit `PENDIENTE_HASH_CORTO`
+**Versión de entrega:** `v1.0.0` — commit `5130305`
 
-> Antes de entregar: crear el tag y reemplazar `PENDIENTE_HASH_CORTO` por el hash corto real.
-> Ver la sección [Entrega](#12-entrega).
+> El tag `v1.0.0` etiqueta el commit `5130305`, que contiene la totalidad del proyecto.
+> Este commit posterior solo anota ese hash aquí: un commit no puede contener su propio hash,
+> porque el hash se deriva de su contenido. Comprobable con `git rev-parse --short v1.0.0`.
 
 ---
 
